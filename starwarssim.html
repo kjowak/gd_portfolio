@@ -80,24 +80,39 @@
 										my friends and I didn't have enough time to see our project come even close to a complete product. However, I am very proud
 										of the prototype systems I created for the project, and would like to highlight a few of them.
 									</p>
-									<p><span class="image left"><img src="images/ForcePush.gif" alt="" /></span>Lorem ipsum dolor sit accumsan interdum nisi, 
-										quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. 
-										Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque 
-										praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. 
-										Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing 
-										accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget tempus vestibulum ante ipsum 
-										primis in faucibus magna blandit adipiscing eu felis iaculis.
-									
+									<h2><u>Force Abilities</u></h2>
+									<p><span class="image left"><img src="images/ForcePush.gif" alt="Clip of Force Push Ability" /></span>
+										The first system I'd like to show off is the force ability system I created for the game. The Force system takes input from
+										the player's keyboard (in its current state, the keys are tied to E and F). This input then signals to the server that a
+										player is trying to use a force ability. The server then gets that player's respective Player class object to check that
+										they have enough experience to use the ability. If they do, it then puts the player on cooldown, calls the respective Force 
+										function, and signals back to the client that it should play an animation.
 									</p>
-									<p><span class="image right"><img src="images/pic09.jpg" alt="" /></span>Lorem ipsum dolor sit accumsan interdum nisi, 
-										quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. 
-										Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque 
-										praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. 
-										Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing 
-										accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget tempus vestibulum ante ipsum 
-										primis in faucibus magna blandit adipiscing eu felis iaculis.
-										
+
+									<p>
+										Currently, the only 2 abilities in the game are the Force Push and Pull. This is largely due to them being similar to implement,
+										and in fact all I did to implement the pull after implementing the push was add a negative sign to the impulse value. That's not
+										to say that the functions are simple, however. Due to the way Roblox manages Network Ownership of parts, special care must be
+										taken when the physics for a part are owned by a player instead of the server. In the case of a force ability, this would be a
+										very common occurance, since players gain ownership of parts that are near their character.
 									</p>
+
+									<p><span class="image right"><img src="images/ForcePullOnPlayer.gif" alt="Clip of player force pulling another player" /></span>
+										The way I chose to implement this was to have the server perform a boxcast for a region in front of the character.
+										The results of that boxcast are then parsed, checking for any BaseParts whose assemblies haven't already been pushed/pulled.
+										Each BasePart is also checked to see if it's a part of another player's character, since the force applied for an assembly
+										with a Humanoid needs to be different from the force applied on a non-Humanoid assembly due to how Roblox handles Humanoid physics.
+										The Network Owner of each part is found, and if the owner is a player, that player's client is signaled to apply a force to the
+										part in question (and its assembly if it has one).
+									</p>
+
+									<p>
+										I'm very happy with how these two abilties turned out, despite me not fulling fleshing out the ability system.
+										If I were to keep developing this system, I think I'd start by adding a server-sided check to make sure clients
+										aren't applying an outrageous amount of force to parts or, more seriously, other players.
+									</p>
+
+									<h2><u>Data Stores</u></h2>
 								</div>
 							</section>
 
