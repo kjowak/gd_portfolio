@@ -113,6 +113,42 @@
 									</p>
 
 									<h2><u>Data Stores</u></h2>
+
+									<p>
+										Star Wars Simulator also features a DataStore system, one of the first that I've created. Although I haven't done
+										enough testing to ensure that it handles every edge case and fix every bug, I believe I have a solid foundation
+										for what could be a very successful saving system.
+									</p>
+
+									<p><span class="image left"><img src="images/FullInventory.jpg" alt="Full Inventory" /></span><span class="image right"><img src="images/EmptyInventory.jpg" alt="Empty Inventory" /></span>
+										The way it works is by first connecting an asynchronous call to retrieve the player's data to Roblox's built-in PlayerAdded
+										event. All asynchronous calls are ran in protected mode using Lua's pcall function, which allows us to catch any errors in
+										accessing a player's data and handle them accordingly. This is important, since attempts to access a Web API, such as Roblox's
+										DataStores, can fail for a multitude of reasons that are out of the developer's control. Currently, Star Wars Simulator is set 
+										to simply retry the previous function in the event of an error.
+									</p>
+
+									<p><span class="image left"><img src="images/NewData.jpg" alt="Dictionary for new data" /></span>
+										While the game itself doesn't currently utilize player credits or experience, the DataStore system still supports it, saving
+										a dictionary with the keys "Money", "EXP", and "Inventory", denoting their respective values. Furthermore, while the Money and
+										EXP values are simple integers, the value saved to Inventory is actually a table of a custom type created using an 
+										<a target="_blank" rel="noopener noreferrer" href="https://devforum.roblox.com/t/all-about-object-oriented-programming/8585">OOP idiom</a>
+										that is very popular on Roblox. This requires special consideration, as Roblox currently doesn't support saving metatables of values
+										using their DataStore Service, and so must be reset to their respective objects every time they are retrieved from storage.
+									</p>
+
+									<h3>Weapon System</h3>
+
+									<p><span class="image left"><img src="images/GunSystemJetpack.gif" alt="Player shooting guns while flying with jetpack" /></span><span class="image right"><img src="images/SaberAttack.gif" alt="Player attacking with lightsaber" /></span>
+										I know that I've already highlighted 2 of my weapon systems, but I'd like to skim over the one I created for Star Wars Simulator
+										as well, since it features compatability for both melee and ranged weapons. Since I've already gone in depth through a very similar
+										<a>weapon system of mine</a>, I won't cover that here, but I do feel like it's worth showing off, since my newest system is based off
+										of the one I created for this game and doesn't have support for melee weapons.
+									</p>
+
+									<p>
+										Am I just writing about this to show off my jetpack that works exactly like flying in Minecraft? Maybe.
+									</p>
 								</div>
 							</section>
 
@@ -126,7 +162,7 @@
 									<div class="contact-method">
 										<span class="icon solid alt fa-envelope"></span>
 										<h3>Email</h3>
-										<a href="#">nowakky1@msu.edu</a>
+										<p>nowakky1@msu.edu</p>
 									</div>
 								</section>
 							</section>
