@@ -47,7 +47,7 @@
 									<header class="major">
 										<h1>Weapon Systems</h1>
 									</header>
-									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
+									<span class="image main"><img src="images/WeaponFactory_main.jpg" alt="" /></span>
 									<!--
 									<div class="row">
 										<div class="col-4">
@@ -61,26 +61,62 @@
 										</div>
 									</div>
 									-->
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
-									<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
-									<p><span class="image left"><img src="images/pic01.jpg" alt="" /></span>Lorem ipsum dolor sit accumsan interdum nisi, 
-										quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. 
-										Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque 
-										praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. 
-										Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing 
-										accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget tempus vestibulum ante ipsum 
-										primis in faucibus magna blandit adipiscing eu felis iaculis.
-									
+									<p>
+										Arguably the most popular genre of games are shooter games, so I figured I had to try my hand at creating one of my own.
+										While I by no means created a full-fleshed shooter game with rounds or any objective for that matter, I have created
+										some pretty flushed-out shooter systems that make adding various types of weapons a breeze and designer-friendly.
 									</p>
-									<p><span class="image right"><img src="images/pic09.jpg" alt="" /></span>Lorem ipsum dolor sit accumsan interdum nisi, 
-										quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. 
-										Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque 
-										praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. 
-										Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing 
-										accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget tempus vestibulum ante ipsum 
-										primis in faucibus magna blandit adipiscing eu felis iaculis.
-										
+
+									<h2><u>The Weapon Factory</u></h2>
+									<p><span class="image left"><img src="images/WeaponFactoryFiring.gif" alt="" /></span>
+										I began the challenge of trying to create a weapon system in the summer of 2020, when I was commissioned by a few people
+										to script some guns for their games in exchange for Robux, Roblox's virtual currency. This would be my first time attempting
+										to code guns without a tutorial, and to be honest felt a bit in over my head. However, I was determined to at least come up with
+										some sort of functional product, especially since it'd been something I'd wanted to try for a while, but just couldn't build
+										up the courage to do.
+									</p>
+									<p><span class="image right"><img src="images/WeaponFactoryAnimations.gif" alt="" /></span>
+										The first thing I tried to get working was the client input, which I usually look to first when creating these kinds of
+										systems, since doing so usually helps rule out client-side questions when debugging. To receive input, such as when the player
+										clicks their mouse, I set up a script that detects when a weapon with a certain tag is equipped/unequipped. When it's equipped,
+										the script then connects the mouse button down event to a function that will signal the server, as well as handle any UI changes
+										that need to be made and client-side effects. An event is also tied to when the player presses the "R" key and a function that, once
+										again, signals the server and handles any client-sided calculations that are needed.
+									</p>
+
+									<p>
+										Once I got that working, I moved to the server and created a script that keeps track of all of the guns in the game,
+										mapping them to their respective owners (players). This allowed me to perform all of the essential calculations in a
+										secure way such that exploiters won't be able to, say, give themselves unlimited ammo in a clip, or max out the damage
+										done by their weapon. This is because any changes made to the Gun's configs on the client side aren't replicated to the
+										server or any other clients.
+									</p>
+
+									<p>
+										Both the client and the server have access to a Gun class, which is where the bulk of the system's code lies. This class
+										has methods such as Gun:Reload(), which handles reloading the gun, and Gun:Fire(), which (big surprise) handles firing the gun.
+										While the code is varied slightly from client to server,
+										the majority of the code is the same, which allowed me to essentially keep 2 copies of each gun - one on the client, and on the server.
+										This made it fairly straightforward to implement certain functionalities, such as updating the player's GUI and animating the player, that otherwise would've
+										needed special care if I had only kept a copy on the server.
+									</p>
+
+									<p><span class="image right"><img src="images/ExampleConfigFolder.jpg" alt="Example gun configuration file" /></span>
+										To make adding new weapons into the game a lot easier, I took advantage of the modular design of the system and created a
+										uniform configuration file that is placed into every weapon. That file is then read by the Gun constructor when creating
+										the Gun object, and the appropriate variables are then set. This makes changing the feel of guns <strong>extremely</strong>
+										fast and intuitive, making the weapon design process a walk in the park.
+									</p>
+
+									<p>
+										I also created all of the animations for the system using Roblox's built in animation editor, which I found very useful for
+										creating quick animations.
+									</p>
+
+									<p>
+										Fortunately, this is one of the few select projects that I have open to the public for playing; if you'd like a
+										playthrough, you can find the Roblox experience 
+										<a target="_blank" rel="noopener noreferrer" href="https://www.roblox.com/games/5233731102/Weapon-Factory">here</a>.
 									</p>
 								</div>
 							</section>
