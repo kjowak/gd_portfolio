@@ -118,6 +118,117 @@
 										playthrough, you can find the Roblox experience 
 										<a target="_blank" rel="noopener noreferrer" href="https://www.roblox.com/games/5233731102/Weapon-Factory">here</a>.
 									</p>
+
+									<h2><u>System Rework</u></h2>
+
+									<p>
+										Fast forward to the Summer of 2022, and I was itching to do more work with shooters. This time around,
+										I actually had an idea for a game, and planned on creating a physics-based shooter where, instead of dealing damage,
+										guns would knock players back into a hazardous environment. Armed with 2 more years of experience in
+										programming, I decided to remake the gun system entirely.
+									</p>
+
+									<!-- Start split for code snippet -->
+									<div class="row">
+										<div class="col-6">
+											<figure>
+												<pre><code>function ServerGun:Fire(mouse_position : Vector3, origin : Vector3?)
+	if self.can_fire and not self.reloading then
+		
+		--Taking advantage of short-circuit logic evaluation here :)
+		if InfiniteMags or useAmmo(self) then
+			self.can_fire = false
+			playSoundInGun(self, getGunConfig(self, "FireSound"))
+
+			if not origin then
+				local fire_point_attachment : Attachment? = self.gun_instance:FindFirstChild("FirePoint", true)
+				if fire_point_attachment then
+					origin = fire_point_attachment.WorldPosition
+				else
+					error("No ray origin for ServerGun:Fire()")
+				end
+			end
+
+			if origin then
+				local direction : Vector3 = mouse_position - origin
+
+				if direction.Magnitude > 1 then
+					direction = direction.Unit
+				end
+
+				local max_range = getGunConfig(self, "MaxRange")
+				local fire_raycast_result : RaycastResult = workspace:Raycast(origin, direction * max_range, self.raycast_params)
+
+				if fire_raycast_result then
+					defaultOnHitFunction(self, fire_raycast_result)
+				end
+			end
+
+			task.delay(60/getGunConfig(self, "FireRate"), function() --fire_rate is in RPM, divide 60 by it to get delay
+				self.can_fire = true
+			end)
+		else
+			self:Reload()
+		end
+	end
+end</code></pre>
+												<figcaption><i>Code Snippet of the Fire function from the ServerGun Class</i></figcaption>
+											</figure>
+										</div>
+										<div class="col-6">
+											<p>
+												The overall concept of the system is or more less the same as the previous, where the client is used for input and user
+										feedback, while the server handles the main system logic. However, the code for this system is much cleaner. The new system
+										was designed in a much more modular way, taking advantage of multiple classes and scripts to handle individual tasks, rather than
+										cramming all of the client-sided stuff in one script and all of the server-sided work in another. Another addition to my coding
+										was the use of Roblox's fancy new type checking that wasn't around when I made the first system. This allowed me to keep track
+										of what types various objects were, improving my workflow and helping me write better code.
+											</p>
+											
+											<!-- split for physics gun gif -->
+											<div class="row">
+												<div class="col-6">
+													<p>
+														In addition to the weapon system, I also coded a physics-based projectile weapon utilizing the 
+														<a href="https://etithespir.it/FastCastAPIDocs/">FastCast Module</a> developed by <a href="https://www.roblox.com/users/18406183/profile/">Xan_TheDragon</a>.
+														This allowed me to create a gun that, instead of having instant damage at the click of a mouse, had projectiles
+														with travel time, meaning that players would have to lead their targets if they hoped to hit their mark. I integrated this module
+														with my own code to handle the physics, and I'm very happy with the end result.
+													</p>
+													<span class="image fit"><img src="images/MovementShowcase.gif" alt="" /></span>
+												</div>
+
+												<div class="col-6">
+													<span class="image fit"><img src="images/PhysicsGun.gif" alt="" /></span>
+													<p>
+														My idea for the physics-based shooter involved a very fast-paced feel, and as such,
+														needed a solid movement system to give the player a sense of controlled speed. My vision
+														for this movement took heavy inspiration from the movement of Warframe, a game about space ninjas.
+														My system features the ability to crouch, sprint, double jump, slide, and slide while double jumping.
+													</p>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+
+									<p>
+										In addition, I attempted to create a camera system that mocks Warframe's, which faces
+										the player in the direction of their camera while holding the right mouse button, but
+										allows their character to rotate independently of the camera when just looking around.
+									</p>
+
+									<h2><u>What I Learned</u></h2>
+
+									<p>
+										Both systems utilize common game development tools and techniques, such as raycasting, object oriented programming,
+										and communication between the client(s) and the server. These projects also gave me some of my first experiences in
+										a modular style of programming, as well as animating and trying to create (minimal) visual effects. In addition,
+										I learned how to incorporate code, such as the FastCast module, that someone else has written with my own,
+										allowing me to create functionality that would've otherwise been less efficient, or much more time demanding to make.
+										Learning about type checking was also a skill that I appreciate very much, as it came in handy during one of my classes,
+										where my professor was using type checking in her Python code.
+									</p>
 								</div>
 							</section>
 
