@@ -71,15 +71,14 @@
 									<p><span class="image left"><img src="images/WeaponFactoryFiring.gif" alt="" /></span>
 										I began the challenge of trying to create a weapon system in the summer of 2020, when I was commissioned by a few people
 										to script some guns for their games in exchange for Robux, Roblox's virtual currency. This would be my first time attempting
-										to code guns without a tutorial, and to be honest felt a bit in over my head. However, I was determined to at least come up with
-										some sort of functional product, especially since it'd been something I'd wanted to try for a while, but just couldn't build
-										up the courage to do.
+										to code guns without a tutorial, and to be honest I felt a bit in over my head. However, I was determined to at least come up with
+										some sort of functional product, especially since it'd been something I'd wanted to try for a while but just never got around to.
 									</p>
 									<p><span class="image right"><img src="images/WeaponFactoryAnimations.gif" alt="" /></span>
 										The first thing I tried to get working was the client input, which I usually look to first when creating these kinds of
 										systems, since doing so usually helps rule out client-side questions when debugging. To receive input, such as when the player
-										clicks their mouse, I set up a script that detects when a weapon with a certain tag is equipped/unequipped. When it's equipped,
-										the script then connects the mouse button down event to a function that will signal the server, as well as handle any UI changes
+										clicks their mouse, I set up a script that detects when a weapon with a certain tag is equipped/unequipped. When one is equipped,
+										the script connects the mouse button down event to a function that will signal the server, as well as handle any UI changes
 										that need to be made and client-side effects. An event is also tied to when the player presses the "R" key and a function that, once
 										again, signals the server and handles any client-sided calculations that are needed.
 									</p>
@@ -177,7 +176,7 @@ end</code></pre>
 										</div>
 										<div class="col-6">
 											<p>
-												The overall concept of the system is or more less the same as the previous, where the client is used for input and user
+												The overall concept of the system is more or less the same as the previous, where the client is used for input and user
 										feedback, while the server handles the main system logic. However, the code for this system is much cleaner. The new system
 										was designed in a much more modular way, taking advantage of multiple classes and scripts to handle individual tasks, rather than
 										cramming all of the client-sided stuff in one script and all of the server-sided work in another. Another addition to my coding
@@ -203,8 +202,8 @@ end</code></pre>
 													<p>
 														My idea for the physics-based shooter involved a very fast-paced feel, and as such,
 														needed a solid movement system to give the player a sense of controlled speed. My vision
-														for this movement took heavy inspiration from the movement of Warframe, a game about space ninjas.
-														My system features the ability to crouch, sprint, double jump, slide, and slide while double jumping.
+														for this movement took heavy inspiration from the movement of <a href="https://www.warframe.com/landing">Warframe</a>, a third-person shooter with fast-paced combat.
+														My system features many of the same capabilities as Warframe's - sliding (midair and grounded), crouching, sprinting, and double jumping.
 													</p>
 												</div>
 											</div>
@@ -224,7 +223,7 @@ end</code></pre>
 										Both systems utilize common game development tools and techniques, such as raycasting, object oriented programming,
 										and communication between the client(s) and the server. These projects also gave me some of my first experiences in
 										a modular style of programming, as well as animating and trying to create (minimal) visual effects. In addition,
-										I learned how to incorporate code, such as the FastCast module, that someone else has written with my own,
+										I learned how to incorporate code that someone else has written, such as the FastCast module, with my own,
 										allowing me to create functionality that would've otherwise been less efficient, or much more time demanding to make.
 										Learning about type checking was also a skill that I appreciate very much, as it came in handy during one of my classes,
 										where my professor was using type checking in her Python code.
